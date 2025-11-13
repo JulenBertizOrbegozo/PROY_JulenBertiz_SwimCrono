@@ -1,0 +1,101 @@
+* {
+    font-family: 'Poppins', sans-serif;
+    color: #0d2b4f;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.2em;
+    color: #0a2342;
+    margin-bottom: 40px;
+    margin-top: 40px;
+  }
+  
+  /* ====== CONTENEDOR FAQ ====== */
+  .faq {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  /* ====== ELEMENTO FAQ ====== */
+  .faq-item {
+    width: 55%;
+    border: 1px solid #b6c7dc;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  
+  /* Checkbox oculto */
+  .faq input[type="checkbox"] {
+    display: none;
+  }
+  
+  /* ====== PREGUNTA ====== */
+  .faq label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.05em;
+    cursor: pointer;
+    padding: 18px 20px;
+    background: #f3f7fb;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #b6c7dc;
+    position: relative;
+  }
+  
+  .faq label:hover {
+    background: #e7eff8;
+  }
+  
+  /* Sombra cuando está abierta */
+  .faq input[type="checkbox"]:checked + label {
+    box-shadow: inset 0 0 10px rgba(21, 101, 192, 0.1);
+  }
+  
+  /* Flecha */
+  .faq label::after {
+    content: '▾';
+    font-size: 1.4em;
+    color: #1565c0;
+    transition: transform 0.35s ease, color 0.3s;
+  }
+  
+  .faq input[type="checkbox"]:checked + label::after {
+    transform: rotate(180deg);
+    color: #0d47a1;
+  }
+  
+  /* ====== RESPUESTA ====== */
+  .faq .answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.25, 0.8, 0.25, 1), padding 0.35s ease;
+    background: #ffffff;
+    color: #1a406a;
+    padding: 0 20px;
+    border-top: 1px solid #b6c7dc;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.03);
+    line-height: 1.6em;
+  }
+  
+  /* Mostrar respuesta al abrir */
+  .faq input[type="checkbox"]:checked ~ .answer {
+    max-height: 500px;
+    padding: 15px 20px 20px 20px;
+  }
+  
+  /* Borde más destacado cuando se abre */
+  .faq input[type="checkbox"]:checked ~ label,
+  .faq input[type="checkbox"]:checked ~ .answer {
+    border-color: #1565c0;
+  }
+  
