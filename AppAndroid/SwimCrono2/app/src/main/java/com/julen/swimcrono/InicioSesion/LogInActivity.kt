@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.julen.swimcrono.Paginas.PuntosFINAActivity
 import com.julen.swimcrono.R
 
 class LogInActivity : AppCompatActivity() {
@@ -25,6 +26,11 @@ class LogInActivity : AppCompatActivity() {
     fun restablecerContraseña(view: View) {}
     fun CrearCuenta(view: View) {
         var intent = Intent(this, CreateAccountActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun login(view: View) {
+        var intent = Intent(this, PuntosFINAActivity::class.java)
         startActivity(intent)
     }
 }

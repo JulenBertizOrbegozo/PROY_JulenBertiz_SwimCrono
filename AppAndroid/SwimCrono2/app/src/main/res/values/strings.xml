@@ -1,4 +1,30 @@
 <resources>
     <string name="app_name">SwimCrono</string>
     <string name="underTitle">Master your time.</string>
+
+
+
+
+
+
+
+
+
+
+    <!-- Array-->
+    <string-array name="opcionesEstilos">
+        <item>Crol</item>
+        <item>Braza</item>
+        <item>Espalda</item>
+        <item>Mariposa</item>
+        <item>Estilos</item>
+    </string-array>
+    <string-array name="opcionesDistancia">
+        <item>50</item>
+        <item>100</item>
+        <item>200</item>
+        <item>400</item>
+        <item>800</item>
+        <item>1500</item>
+    </string-array>
 </resources>
