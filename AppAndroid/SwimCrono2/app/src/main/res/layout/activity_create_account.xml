@@ -69,7 +69,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/app_backgroundCard"
+            android:background="@color/app_card_background"
             android:layout_marginTop="10dp"
             android:padding="20dp">
             <ImageView
@@ -98,7 +98,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/app_backgroundCard"
+            android:background="@color/app_card_background"
             android:layout_marginTop="10dp"
             android:padding="20dp">
             <ImageView
@@ -127,7 +127,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/app_backgroundCard"
+            android:background="@color/app_card_background"
             android:layout_marginTop="10dp"
             android:padding="20dp">
             <ImageView
@@ -157,7 +157,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/app_backgroundCard"
+            android:background="@color/app_card_background"
             android:layout_marginTop="10dp"
             android:padding="20dp">
             <ImageView

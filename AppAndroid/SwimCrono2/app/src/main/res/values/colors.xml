@@ -14,7 +14,8 @@
 
 
     <color name="app_background">@color/azulOscuro</color>
-    <color name="app_backgroundCard">@color/azulNeutro</color>
+    <color name="app_card_background">@color/azulNeutro</color>
+    <color name="app_card_selected">@color/marron</color>
     <color name="app_button">@color/marron</color>
     <color name="app_text">@color/beige</color>
     <color name="app_text_llamativo">@color/marron</color>
