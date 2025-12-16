@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="azulOscuro">#022D5F</color>
-    <color name="azulNeutro">#076D9B</color>
+    <color name="azulNeutro">#034A6D</color>
     <color name="azulClaro">#6EBCE4</color>
     <color name="marron">#9E6A21</color>
     <color name="beige">#D0D3B5</color>
@@ -15,6 +15,7 @@
 
     <color name="app_background">@color/azulOscuro</color>
     <color name="app_card_background">@color/azulNeutro</color>
+    <color name="app_input_background">@color/azulClaro</color>
     <color name="app_card_selected">@color/marron</color>
     <color name="app_button">@color/marron</color>
     <color name="app_text">@color/beige</color>
