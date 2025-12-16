@@ -1,12 +1,7 @@
 <resources>
     <string name="app_name">SwimCrono</string>
     <string name="underTitle">Master your time.</string>
-
-
-
-
-
-
+    
 
 
     <style name="AppButton">

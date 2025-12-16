@@ -52,6 +52,12 @@
             android:text="Email"
             android:textColor="@color/app_text"
             android:textSize="@dimen/text"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/cardview_dark_background"/>
+
+
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -144,13 +150,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¿No tienes cuenta?"
-            android:textColor="@color/app_text"/>
+            android:textColor="@color/app_text"
+            android:textSize="@dimen/text"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Crea cuenta"
             android:textColor="@color/app_text_llamativo"
             android:layout_marginStart="10dp"
+            android:textSize="@dimen/text"
             android:onClick="CrearCuenta"/>
     </LinearLayout>
 
