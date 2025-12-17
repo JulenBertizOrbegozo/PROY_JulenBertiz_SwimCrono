@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.julen.swimcrono.Paginas.PuntosFINAActivity
+import com.julen.swimcrono.Paginas.MainActivity
 import com.julen.swimcrono.R
 
 
@@ -114,7 +114,7 @@ class CreateAccountActivity : AppCompatActivity() {
             tilConfirmPassword!!.setError(null)
         }
 
-        var intent = Intent(this, PuntosFINAActivity::class.java)
+        var intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
     fun IniciarSesion(view: View) {

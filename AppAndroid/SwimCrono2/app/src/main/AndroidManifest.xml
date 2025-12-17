@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwimCrono">
         <activity
+            android:name=".Paginas.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".Paginas.WorldRecordsActivity"
             android:exported="false" />
         <activity

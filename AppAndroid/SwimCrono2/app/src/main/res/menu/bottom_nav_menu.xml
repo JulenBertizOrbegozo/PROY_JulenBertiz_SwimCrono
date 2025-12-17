@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Inicio" />
+
+    <item
+        android:id="@+id/nav_fina"
+        android:icon="@drawable/ic_fina_a_cambiar"
+        android:title="FINA" />
+
+    <item
+        android:id="@+id/nav_mis_tiempos"
+        android:icon="@drawable/ic_time"
+        android:title="Mis tiempos" />
+
+    <item
+        android:id="@+id/nav_world_record"
+        android:icon="@drawable/ic_world_record_a_cambiar"
+        android:title="World Records" />
+
+</menu>
