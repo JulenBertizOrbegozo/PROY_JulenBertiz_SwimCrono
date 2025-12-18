@@ -118,7 +118,13 @@ class CreateAccountActivity : AppCompatActivity() {
         startActivity(intent)
     }
     fun IniciarSesion(view: View) {
-        var intent = Intent(this, LogInActivity::class.java)
+        volverAtras(view)
+    }
+
+    fun volverAtras(view: View) {
+        val intent: Intent = Intent(this, LogInActivity::class.java)
         startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
     }
 }

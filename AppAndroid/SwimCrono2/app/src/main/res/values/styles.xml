@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema principal de la app -->
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Tu configuración normal -->
+    </style>
+
+    <!-- Tema de Splash
+    <style name="Theme.MyApp.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+         Fondo de la splash, puede ser un color o drawable
+        <item name="android:windowBackground">@color/app_background</item>
+    </style>-->
+    <style name="Theme.MyApp.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
+
+</resources>
