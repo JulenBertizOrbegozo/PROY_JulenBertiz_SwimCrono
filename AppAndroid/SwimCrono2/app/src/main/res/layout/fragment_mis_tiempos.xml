@@ -1,14 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Paginas.MisTiemposFragment">
+    android:background="@color/app_background">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <!-- TÍTULO -->
+        <LinearLayout
+            android:id="@+id/titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mis tiempos"
+                android:textColor="@color/app_text"
+                android:textSize="@dimen/UnderTitle"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- FILTROS -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <include
+                    android:id="@+id/estiloTodos"
+                    layout="@layout/reusable_view_card_options"/>
+                <include
+                    android:id="@+id/estiloCrol"
+                    layout="@layout/reusable_view_card_options"/>
+                <include
+                    android:id="@+id/estiloMariposa"
+                    layout="@layout/reusable_view_card_options"/>
+                <include
+                    android:id="@+id/estiloEspalda"
+                    layout="@layout/reusable_view_card_options"/>
+                <include
+                    android:id="@+id/estiloBraza"
+                    layout="@layout/reusable_view_card_options"/>
+                <include
+                    android:id="@+id/estiloEstilos"
+                    layout="@layout/reusable_view_card_options"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- DISTANCIAS -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center">
+
+                <include
+                    android:id="@+id/distancia50m"
+                    layout="@layout/reusable_view_card_options"/>
+                <include
+                    android:id="@+id/distancia100m"
+                    layout="@layout/reusable_view_card_options"/>
+                <include
+                    android:id="@+id/distancia200m"
+                    layout="@layout/reusable_view_card_options"/>
+                <include
+                    android:id="@+id/distancia400m"
+                    layout="@layout/reusable_view_card_options"/>
+                <include
+                    android:id="@+id/distancia800m"
+                    layout="@layout/reusable_view_card_options"/>
+                <include
+                    android:id="@+id/distancia1500m"
+                    layout="@layout/reusable_view_card_options"/>
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- HISTORIAL -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="HISTORIAL RECIENTE"
+                    android:textColor="@color/app_text"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:text="Ver estadísticas"
+                    android:textColor="@color/app_text_llamativo"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+            </LinearLayout>
+
+            <!-- ITEM 1 (PB) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/app_card_background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_time"
+                        app:tint="@color/app_text_llamativo" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingStart="12dp">
+
+                        <TextView
+                            android:text="00:54.32"
+                            android:textColor="@color/app_text"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"/>
+
+                        <TextView
+                            android:text="100m Libre · 12 Oct"
+                            android:textColor="@color/app_text_llamativo"
+                            android:textSize="12sp"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_flecha_derecha"
+                        app:tint="@color/app_text_llamativo" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+        <!-- BOTÓN + -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:src="@drawable/ic_add"
+                app:backgroundTint="@color/app_text_llamativo"/>
+        </FrameLayout>
+
+    </LinearLayout>
 
 </FrameLayout>
