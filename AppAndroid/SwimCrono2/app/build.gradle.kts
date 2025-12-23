@@ -36,7 +36,13 @@ android {
 }
 
 dependencies {
+    val room_version = "2.8.4"
 
+    /*Room database*/
+    implementation("androidx.room:room-runtime:$room_version")
+
+
+    /*Default*/
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

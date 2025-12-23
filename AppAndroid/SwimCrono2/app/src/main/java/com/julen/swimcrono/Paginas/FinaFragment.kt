@@ -102,6 +102,9 @@ class FinaFragment : Fragment() {
     private fun initButton(view: View) {
         val button = view.findViewById<Button>(R.id.reusableButton)
         button.text = "Calcular"
+        button.setOnClickListener {
+            calcularPuntos()
+        }
     }
 
     private fun setCardText(card: CardView, text: String) {
@@ -113,4 +116,19 @@ class FinaFragment : Fragment() {
         selected.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.app_card_selected))
         unselected.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.app_card_background))
     }
+    private fun calcularPuntos() {
+        val genero :String
+        val piscina : String
+        if (mascElegido)
+            genero = "masc"
+        else
+            genero = "fem"
+        if (piscinaCortaElegido)
+            piscina = "25m"
+        else
+            piscina= "50m"
+
+    }
 }
+
+
