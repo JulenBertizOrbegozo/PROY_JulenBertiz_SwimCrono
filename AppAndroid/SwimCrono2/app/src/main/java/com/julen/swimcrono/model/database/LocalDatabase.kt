@@ -11,8 +11,9 @@ import com.julen.swimcrono.model.dao.WorldRecordDAO
 import com.julen.swimcrono.model.entity.MisTiempos
 import com.julen.swimcrono.model.entity.Usuario
 import com.julen.swimcrono.model.entity.Prueba
+import com.julen.swimcrono.model.entity.WorldRecord
 
-@Database(entities = [Usuario::class, Prueba::class, MisTiempos::class], version = 1)
+@Database(entities = [Usuario::class, Prueba::class, MisTiempos::class, WorldRecord::class], version = 1)
 abstract class LocalDatabase : RoomDatabase(){
     abstract fun usuarioDAO() : UsuarioDAO
     abstract fun pruebaDAO() : PruebaDAO

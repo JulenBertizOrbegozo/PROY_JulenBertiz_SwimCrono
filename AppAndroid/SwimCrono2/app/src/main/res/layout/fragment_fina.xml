@@ -34,6 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titulo"
         app:cardBackgroundColor="@color/app_card_background"
         app:cardCornerRadius="16dp"
+        android:visibility="gone"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -59,6 +60,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/txtPuntos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="842"
@@ -77,6 +79,7 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     <LinearLayout
+        android:id="@+id/contenido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/cardPuntos"
@@ -191,5 +194,22 @@
         </LinearLayout>
         <include
             layout="@layout/reusable_view_button"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/contenido"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/txtError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_text_error"
+            android:text="error"
+            android:textSize="@dimen/text"
+            android:visibility="gone"/>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

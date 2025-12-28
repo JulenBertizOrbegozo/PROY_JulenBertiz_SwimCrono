@@ -12,16 +12,13 @@ interface WorldRecordDAO {
     @Query("select * from world_record")
     fun getAll(): List<WorldRecord>
 
-    @Query("select * from world_record where prueba_id =:misWorldRecordId")
-    fun getById(misWorldRecordId : Long) : List<WorldRecord>
+    @Query("select * from world_record where prueba_id =:misWorldRecordId limit 1")
+    fun getById(misWorldRecordId: Long?) : WorldRecord
 
     @Insert
     fun insert(vararg misWorldRecord: WorldRecord)
 
     @Delete
     fun delete(misWorldRecord:WorldRecord)
-
-    @Query("select * from world_record where prueba_id = :idPrueba")
-    suspend fun getWorldRecordDePrueba(idPrueba: Long): PruebaConWorldRecord
 
 }

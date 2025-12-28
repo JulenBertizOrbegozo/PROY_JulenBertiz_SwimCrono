@@ -11,10 +11,11 @@ class WorldRecordService(private val worldRecordDao: WorldRecordDAO) {
     suspend fun borrarWorldRecord(worldRecord: WorldRecord){
         worldRecordDao.delete(worldRecord)
     }
-    suspend fun getWorldRecord(): List<WorldRecord>{
+    suspend fun getAllWorldRecord(): List<WorldRecord>{
         return worldRecordDao.getAll()
     }
-    suspend fun getWorldRecordConPrueba(idWorldRecord: Long) : PruebaConWorldRecord{
-        return worldRecordDao.getWorldRecordDePrueba(idWorldRecord)
+    fun getWorldRecord(id: Long?): WorldRecord{
+        return worldRecordDao.getById(id)
     }
+
 }

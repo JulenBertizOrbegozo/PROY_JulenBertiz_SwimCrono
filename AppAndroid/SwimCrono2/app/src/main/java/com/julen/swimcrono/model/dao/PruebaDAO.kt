@@ -16,7 +16,7 @@ interface PruebaDAO {
     fun getAll(): List<Prueba>
 
     @Query("select * from prueba where id = :pruebaId")
-    fun getById(pruebaId : Long) : List<Prueba>
+    fun getById(pruebaId : Long) : Prueba
 
     @Insert
     suspend fun insertarPrueba(prueba: Prueba): Long
@@ -31,4 +31,7 @@ interface PruebaDAO {
     @Transaction
     @Query("select * from prueba where id = :idPrueba")
     suspend fun getPruebaConWorldRecord(idPrueba : Long) : PruebaConWorldRecord
+
+    @Query("select id from prueba where estilo = :estilo and distancia = :distancia and genero = :genero and piscina = :piscina limit 1")
+    suspend fun getIdFromEstiloDistancia(estilo: String, distancia: Int, genero: String, piscina: String): Long?
 }
