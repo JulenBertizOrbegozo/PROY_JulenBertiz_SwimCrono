@@ -6,7 +6,14 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.julen.swimcrono.R
+import com.julen.swimcrono.model.database.LocalDatabase
+import com.julen.swimcrono.model.service.PruebaService
+import com.julen.swimcrono.ui.adapters.WorldRecordAdapter
+import kotlinx.coroutines.launch
+import androidx.recyclerview.widget.RecyclerView
 
 class WorldRecordFragment : Fragment(R.layout.fragment_world_record) {
 
@@ -17,18 +24,32 @@ class WorldRecordFragment : Fragment(R.layout.fragment_world_record) {
 
     private var mascElegido = true
     private var piscinaCortaElegido = false
+    private lateinit var adapter: WorldRecordAdapter
+    private lateinit var pruebaService: PruebaService
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Referencias
+        val database = LocalDatabase.getInstance(requireContext())
+        pruebaService = PruebaService(database.pruebaDAO())
+
+        adapter = WorldRecordAdapter()
+
+        val recycler = view.findViewById<RecyclerView>(R.id.recyclerWorldRecords)
+        recycler.layoutManager = LinearLayoutManager(requireContext())
+        recycler.adapter = adapter
+
         cardMasc = view.findViewById(R.id.cardMasc)
         cardFem = view.findViewById(R.id.cardFem)
         cardPiscinaCorta = view.findViewById(R.id.cardPiscinaCorta)
         cardPiscinaLarga = view.findViewById(R.id.cardPiscinaLarga)
 
         initComponents(view)
+
+        cargarWorldRecords()
     }
+
 
     private fun initComponents(view: View) {
         val ctx = requireContext()
@@ -40,24 +61,32 @@ class WorldRecordFragment : Fragment(R.layout.fragment_world_record) {
             cardMasc.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.app_card_selected))
             cardFem.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.app_card_background))
             mascElegido = true
+            cargarWorldRecords()
+
         }
 
         cardFem.setOnClickListener {
             cardMasc.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.app_card_background))
             cardFem.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.app_card_selected))
             mascElegido = false
+            cargarWorldRecords()
+
         }
 
         cardPiscinaCorta.setOnClickListener {
             cardPiscinaCorta.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.app_card_selected))
             cardPiscinaLarga.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.app_card_background))
             piscinaCortaElegido = true
+            cargarWorldRecords()
+
         }
 
         cardPiscinaLarga.setOnClickListener {
             cardPiscinaCorta.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.app_card_background))
             cardPiscinaLarga.setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.app_card_selected))
             piscinaCortaElegido = false
+            cargarWorldRecords()
+
         }
 
         setCardText(view, R.id.cardMasc, "Masculino")
@@ -71,4 +100,28 @@ class WorldRecordFragment : Fragment(R.layout.fragment_world_record) {
         val textView = card.findViewById<TextView>(R.id.textOption)
         textView.text = text
     }
+
+    private fun cargarWorldRecords() {
+        val genero = if (mascElegido) "Masc" else "Fem"
+        val piscina = if (piscinaCortaElegido) "25m" else "50m"
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val records = pruebaService.getWorldRecordsFiltrados(genero, piscina)
+            adapter.actualizarLista(records)
+        }
+    }
+
+    fun formatearTiempo(tiempo: String): String {
+        val partes = tiempo.split(":")
+        if (partes.size == 2) {
+            val minutos = partes[0].trimStart('0')
+            val segundos = partes[1]
+
+            val minutoFormateado = if (minutos.isEmpty()) "0" else minutos
+            return "$minutoFormateado:$segundos"
+        }
+        return tiempo
+    }
+
+
 }

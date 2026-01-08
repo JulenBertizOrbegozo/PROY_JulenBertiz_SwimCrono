@@ -6,6 +6,7 @@
     <color name="marron">#9E6A21</color>
     <color name="beige">#D0D3B5</color>
     <color name="rojo">#FF0202</color>
+    <color name="gris">#49494B</color>
 
     <color name="black">#FF000000</color>
     <color name="dorado">#FFFFFFFF</color>
@@ -32,6 +33,7 @@
     <color name="app_text_llamativo">@color/marron</color>
     <color name="app_text_seleccionado">@color/marron</color>
     <color name="app_text_error">@color/rojo</color>
+    <color name="app_text_secondary">@color/gris</color>
 
 
 

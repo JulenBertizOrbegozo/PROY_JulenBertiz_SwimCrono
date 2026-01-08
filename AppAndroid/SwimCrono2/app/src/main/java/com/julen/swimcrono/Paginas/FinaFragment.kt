@@ -196,7 +196,6 @@ class FinaFragment : Fragment() {
             }
 
 
-            // 5️⃣ Actualizar UI (MAIN THREAD)
             if (puntosFina == 0 || puntosFina < 0) {
                 txtError.text = "No se ha encontrado la prueba"
                 txtError.visibility = View.VISIBLE
@@ -210,7 +209,6 @@ class FinaFragment : Fragment() {
             }
         }
     }
-
 
 
 

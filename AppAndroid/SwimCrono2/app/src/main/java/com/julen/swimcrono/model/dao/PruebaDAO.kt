@@ -34,4 +34,9 @@ interface PruebaDAO {
 
     @Query("select id from prueba where estilo = :estilo and distancia = :distancia and genero = :genero and piscina = :piscina limit 1")
     suspend fun getIdFromEstiloDistancia(estilo: String, distancia: Int, genero: String, piscina: String): Long?
+
+    @Transaction
+    @Query("SELECT * FROM prueba WHERE genero = :genero AND piscina = :piscina")
+    suspend fun getWorldRecordsFiltrados(genero: String, piscina: String): List<PruebaConWorldRecord>
+
 }

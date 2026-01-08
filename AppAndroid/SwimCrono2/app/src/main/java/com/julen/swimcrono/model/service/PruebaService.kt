@@ -1,5 +1,6 @@
 package com.julen.swimcrono.model.service
 
+import android.widget.Toast
 import com.julen.swimcrono.model.dao.PruebaDAO
 import com.julen.swimcrono.model.entity.Prueba
 import com.julen.swimcrono.model.relations.PruebaConMisTiempos
@@ -43,5 +44,8 @@ class PruebaService(private val pruebaDao : PruebaDAO) {
         }
 
         return pruebaDao.getIdFromEstiloDistancia(estiloBD, distancia, generoBD, piscinaBD)
+    }
+    suspend fun getWorldRecordsFiltrados(genero: String, piscina: String): List<PruebaConWorldRecord>{
+        return pruebaDao.getWorldRecordsFiltrados(genero, piscina)
     }
 }
