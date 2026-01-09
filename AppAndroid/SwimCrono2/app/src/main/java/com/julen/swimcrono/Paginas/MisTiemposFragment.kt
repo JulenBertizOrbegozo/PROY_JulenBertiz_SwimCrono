@@ -1,15 +1,25 @@
 package com.julen.swimcrono.Paginas
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.julen.swimcrono.R
-
+import com.julen.swimcrono.model.database.LocalDatabase
+import com.julen.swimcrono.model.service.MisTiemposService
+import com.julen.swimcrono.ui.adapters.MisTiemposAdapter
+import kotlinx.coroutines.launch
 
 
 class MisTiemposFragment : Fragment() {
@@ -27,13 +37,16 @@ class MisTiemposFragment : Fragment() {
     private lateinit var cardEstiloBraza : CardView
     private lateinit var cardEstiloCrol : CardView
     private lateinit var cardEstiloEstilos : CardView
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private lateinit var misTiemposService: MisTiemposService
+    private lateinit var adapter: MisTiemposAdapter
+    private lateinit var txtError: TextView
+    private lateinit var layoutPruebas : LinearLayout
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_mis_tiempos, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         card50m = view.findViewById<CardView>(R.id.distancia50m)
@@ -50,6 +63,19 @@ class MisTiemposFragment : Fragment() {
         cardEstiloBraza = view.findViewById<CardView>(R.id.estiloBraza)
         cardEstiloEstilos = view.findViewById<CardView>(R.id.estiloEstilos)
         initCards()
+
+        val database = LocalDatabase.getInstance(requireContext())
+        misTiemposService = MisTiemposService(database.misTiemposDAO())
+
+        adapter = MisTiemposAdapter()
+        val recycler = view.findViewById<RecyclerView>(R.id.recyclerMisTiempos)
+        recycler.layoutManager = LinearLayoutManager(requireContext())
+        recycler.adapter = adapter
+
+        txtError = view.findViewById<TextView>(R.id.txtError)
+        layoutPruebas = view.findViewById<LinearLayout>(R.id.layoutPruebas)
+        cargarMisTiempos()
+
     }
 
     private fun initCards() {
@@ -74,51 +100,63 @@ class MisTiemposFragment : Fragment() {
         cardEstiloTodos.setOnClickListener {
             selectCardEstilos(cardEstiloTodos)
             cardEstiloElegido = cardEstiloTodos
+            cargarMisTiempos()
         }
         cardEstiloCrol.setOnClickListener {
             selectCardEstilos(cardEstiloCrol)
             cardEstiloElegido = cardEstiloCrol
+            cargarMisTiempos()
         }
         cardEstiloMariposa.setOnClickListener {
             selectCardEstilos(cardEstiloMariposa)
             cardEstiloElegido = cardEstiloMariposa
+            cargarMisTiempos()
         }
         cardEstiloEspalda.setOnClickListener {
             selectCardEstilos(cardEstiloEspalda)
             cardEstiloElegido = cardEstiloEspalda
+            cargarMisTiempos()
         }
         cardEstiloBraza.setOnClickListener {
             selectCardEstilos(cardEstiloBraza)
             cardEstiloElegido = cardEstiloBraza
+            cargarMisTiempos()
         }
         cardEstiloEstilos.setOnClickListener {
             selectCardEstilos(cardEstiloEstilos)
             cardEstiloElegido = cardEstiloEstilos
+            cargarMisTiempos()
         }
 
         card50m.setOnClickListener {
             selectCardDistancia(card50m)
             cardDistanciaElegido = card50m
+            cargarMisTiempos()
         }
         card100m.setOnClickListener {
             selectCardDistancia(card100m)
             cardDistanciaElegido = card100m
+            cargarMisTiempos()
         }
         card200m.setOnClickListener {
             selectCardDistancia(card200m)
             cardDistanciaElegido = card200m
+            cargarMisTiempos()
         }
         card400m.setOnClickListener {
             selectCardDistancia(card400m)
             cardDistanciaElegido = card400m
+            cargarMisTiempos()
         }
         card800m.setOnClickListener {
             selectCardDistancia(card800m)
             cardDistanciaElegido = card800m
+            cargarMisTiempos()
         }
         card1500m.setOnClickListener {
             selectCardDistancia(card1500m)
             cardDistanciaElegido = card1500m
+            cargarMisTiempos()
         }
     }
 
@@ -150,5 +188,40 @@ class MisTiemposFragment : Fragment() {
     private fun selectCardDistancia(selected: CardView) {
         unselectCardDistancia()
         selected.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.app_card_selected))
+    }
+
+    private fun cargarMisTiempos(){
+        val distancia = cardDistanciaElegido.findViewById<TextView>(R.id.textOption).text.toString()
+        val partesDistancia = distancia.split("m")
+        val distanciaInt = partesDistancia[0].toInt()
+        var estilo = cardEstiloElegido.findViewById<TextView>(R.id.textOption).text.toString()
+        if (estilo.uppercase() == "CROL") estilo = "Libre"
+        viewLifecycleOwner.lifecycleScope.launch {
+            if (estilo.uppercase() == "TODOS"){
+                val misTiempos = misTiemposService.getMisTiemposConPruebaSoloDistancia(distanciaInt)
+                Log.d("MIS_TIEMPOS", "Resultados: ${misTiempos.size}")
+                Log.d("MIS_TIEMPOS", "Distancia: ${distanciaInt}")
+                if (misTiempos.isEmpty()){
+                    layoutPruebas.visibility = View.GONE
+                    txtError.text = "No hay registros de esta distancia"
+                    txtError.visibility = View.VISIBLE
+                }else{
+                    layoutPruebas.visibility = View.VISIBLE
+                    txtError.visibility = View.GONE
+                }
+                adapter.actualizarLista(misTiempos)
+            }else{
+                val misTiempos = misTiemposService.getMisTiemposConPrueba(distanciaInt, estilo)
+                if (misTiempos.isEmpty()){
+                    layoutPruebas.visibility = View.GONE
+                    txtError.text = "No hay registros de esta prueba"
+                    txtError.visibility = View.VISIBLE
+                }else{
+                    layoutPruebas.visibility = View.VISIBLE
+                    txtError.visibility = View.GONE
+                }
+                adapter.actualizarLista(misTiempos)
+            }
+        }
     }
 }

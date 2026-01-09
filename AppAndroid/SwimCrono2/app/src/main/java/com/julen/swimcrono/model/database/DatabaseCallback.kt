@@ -3,10 +3,13 @@ package com.julen.swimcrono.model.database
 import android.content.Context
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.julen.swimcrono.model.dao.MisTiemposDAO
 import com.julen.swimcrono.model.dao.PruebaDAO
 import com.julen.swimcrono.model.dao.WorldRecordDAO
+import com.julen.swimcrono.model.entity.MisTiempos
 import com.julen.swimcrono.model.entity.Prueba
 import com.julen.swimcrono.model.entity.WorldRecord
+import com.julen.swimcrono.model.service.MisTiemposService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,8 +26,11 @@ class DatabaseCallback(
 
             val pruebaDao = database.pruebaDAO()
             val worldRecordDao = database.worldRecordDAO()
+            val misTiemposDao  = database.misTiemposDAO()
+            val misTiemposService = MisTiemposService(misTiemposDao)
 
             ainadirDatosPruebasYWR(pruebaDao, worldRecordDao)
+            insertarMisTiempos(misTiemposService)
         }
     }
 
@@ -1354,6 +1360,9 @@ class DatabaseCallback(
     }
 
 
+    private suspend fun insertarMisTiempos(misTieposService: MisTiemposService){
+        misTieposService.insert(MisTiempos(0, "2026-01-08", "00:25.32", 1))
+    }
 
 
 

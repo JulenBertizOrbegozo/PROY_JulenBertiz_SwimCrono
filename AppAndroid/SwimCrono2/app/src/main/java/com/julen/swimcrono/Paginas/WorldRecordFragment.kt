@@ -111,17 +111,4 @@ class WorldRecordFragment : Fragment(R.layout.fragment_world_record) {
         }
     }
 
-    fun formatearTiempo(tiempo: String): String {
-        val partes = tiempo.split(":")
-        if (partes.size == 2) {
-            val minutos = partes[0].trimStart('0')
-            val segundos = partes[1]
-
-            val minutoFormateado = if (minutos.isEmpty()) "0" else minutos
-            return "$minutoFormateado:$segundos"
-        }
-        return tiempo
-    }
-
-
 }

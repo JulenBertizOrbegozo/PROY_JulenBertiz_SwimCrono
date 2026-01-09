@@ -2,31 +2,50 @@ package com.julen.swimcrono.model.service
 
 import com.julen.swimcrono.model.dao.MisTiemposDAO
 import com.julen.swimcrono.model.entity.MisTiempos
+import com.julen.swimcrono.model.relations.TiempoConPrueba
 
 class MisTiemposService(private val misTiemposDao: MisTiemposDAO) {
 
-    // Obtener todos los registros
     suspend fun getAllMisTiempos(): List<MisTiempos> {
         return misTiemposDao.getAll()
     }
 
-    // Obtener un registro por su ID
     suspend fun getMisTiemposById(id: Long): List<MisTiempos> {
         return misTiemposDao.getById(id)
     }
 
-    // Insertar uno o varios registros
-    suspend fun insertarMisTiempos(vararg misTiempos: MisTiempos) {
+    suspend fun insert(vararg misTiempos: MisTiempos) {
         misTiemposDao.insertAll(*misTiempos)
     }
 
-    // Borrar un registro
     suspend fun borrarMisTiempos(misTiempos: MisTiempos) {
         misTiemposDao.delete(misTiempos)
     }
 
-    // Obtener todos los tiempos de una prueba específica
     suspend fun getMisTiemposDePrueba(idPrueba: Long): List<MisTiempos> {
         return misTiemposDao.getMisTiemposDePrueba(idPrueba)
     }
+    suspend fun getMisTiemposConPrueba(distancia: Int, estilo: String): List<TiempoConPrueba> {
+        val pruebasConTiempos = misTiemposDao.getPruebasConMisTiempos(distancia, estilo)
+        val resultado = mutableListOf<TiempoConPrueba>()
+        for (p in pruebasConTiempos) {
+            for (t in p.misTiempos) {
+                resultado.add(TiempoConPrueba(t, p.prueba))
+            }
+        }
+        return resultado
+    }
+
+    suspend fun getMisTiemposConPruebaSoloDistancia(distancia: Int): List<TiempoConPrueba> {
+        val pruebasConTiempos = misTiemposDao.getPruebasConMisTiemposSoloDistancia(distancia)
+        val resultado = mutableListOf<TiempoConPrueba>()
+        for (p in pruebasConTiempos) {
+            for (t in p.misTiempos) {
+                resultado.add(TiempoConPrueba(t, p.prueba))
+            }
+        }
+        return resultado
+    }
+
+
 }
