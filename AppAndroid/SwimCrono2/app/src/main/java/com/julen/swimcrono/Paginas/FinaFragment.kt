@@ -1,6 +1,8 @@
 package com.julen.swimcrono.Paginas
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,7 +69,52 @@ class FinaFragment : Fragment() {
         initCards()
         initButton(view)
         initPuntos(view)
+        initTiempo(view)
     }
+
+    private fun initTiempo(view: View) {
+
+        val cardTiempo = view.findViewById<View>(R.id.cardTiempo)
+        val timeEditText = cardTiempo.findViewById<EditText>(R.id.inputDisplay)
+
+        timeEditText.addTextChangedListener(object : TextWatcher {
+
+            private var isUpdating = false
+            private var rawDigits = ""
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                if (isUpdating) return
+                isUpdating = true
+
+                // Solo números
+                rawDigits = s.toString().replace("[^0-9]".toRegex(), "")
+
+                // Máximo 6 dígitos
+                if (rawDigits.length > 6) {
+                    rawDigits = rawDigits.substring(0, 6)
+                }
+
+                // Rellenar con ceros
+                val padded = rawDigits.padStart(6, '0')
+
+                val minutes = padded.substring(0, 2)
+                val seconds = padded.substring(2, 4)
+                val centiseconds = padded.substring(4, 6)
+
+                val formatted = "$minutes:$seconds.$centiseconds"
+
+                timeEditText.setText(formatted)
+                timeEditText.setSelection(formatted.length)
+
+                isUpdating = false
+            }
+        })
+    }
+
 
     private fun initPuntos(view: View) {
         cardPuntos = view.findViewById<CardView>(R.id.cardPuntos)
