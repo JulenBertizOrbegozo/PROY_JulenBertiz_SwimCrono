@@ -6,14 +6,22 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
+import android.view.View.VISIBLE
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.julen.swimcrono.Paginas.MainActivity
 import com.julen.swimcrono.R
+import com.julen.swimcrono.model.database.LocalDatabase
+import com.julen.swimcrono.model.entity.Usuario
+import com.julen.swimcrono.model.service.UsuarioService
+import kotlinx.coroutines.launch
 
 
 class CreateAccountActivity : AppCompatActivity() {
@@ -25,6 +33,8 @@ class CreateAccountActivity : AppCompatActivity() {
     var etPassword: TextInputEditText? = null
     var etNombre: TextInputEditText? = null
     var etConfirmPassword: TextInputEditText? = null
+    var txtError : TextView? = null
+    var btnCrear : Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,13 +45,21 @@ class CreateAccountActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         vincular()
+        btnCrear = findViewById(R.id.btnCrearCuenta)
+        btnCrear?.setOnClickListener {
+            lifecycleScope.launch {
+                btnCrearCuenta()
+            }
+        }
     }
     fun vincular(){
         tilNombre = findViewById(R.id.tilNombre);
         tilEmail = findViewById(R.id.tilEmail);
         tilPassword = findViewById(R.id.tilPassword);
         tilConfirmPassword = findViewById(R.id.tilConfirmPassword);
+        txtError = findViewById(R.id.txtError)
 
         etNombre = findViewById(R.id.etNombre);
         etEmail = findViewById(R.id.etEmail);
@@ -68,9 +86,10 @@ class CreateAccountActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+
     }
 
-    fun btnCrearCuenta(view: View) {
+    suspend fun btnCrearCuenta() {
 
         val nombre = etNombre!!.getText().toString().trim { it <= ' ' }
         val email = etEmail!!.getText().toString().trim { it <= ' ' }
@@ -104,7 +123,7 @@ class CreateAccountActivity : AppCompatActivity() {
             tilPassword!!.setError("Debe tener 8-20 caracteres, una mayúscula, un número y un símbolo")
             return
         } else {
-            tilPassword!!.setError(null) // Todo correcto
+            tilPassword!!.setError(null)
         }
 
         if (password != confirmPassword) {
@@ -113,6 +132,18 @@ class CreateAccountActivity : AppCompatActivity() {
         } else {
             tilConfirmPassword!!.setError(null)
         }
+        val usuarioDao = LocalDatabase.getInstance(this).usuarioDAO()
+        val usuarioService = UsuarioService(usuarioDao)
+        val usuarioConCorreoIgual = usuarioService.getUsuarioByMail(email)
+        if (usuarioConCorreoIgual?.correo == email){
+            //TODO salida error mismo correo
+            txtError?.text = "Existe un usuario con el mísmo correo, prueba con otro."
+            txtError?.visibility = VISIBLE
+            return
+        }
+        //TODO crear cuenta
+        val usuario = Usuario(0, nombre, null, null, email, password, null, null, null, true)
+        usuarioService.insertarUsuario(usuario)
 
         var intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
@@ -127,4 +158,5 @@ class CreateAccountActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 
     }
+
 }

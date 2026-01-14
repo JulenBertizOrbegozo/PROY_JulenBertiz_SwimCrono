@@ -134,6 +134,7 @@
             android:textSize="@dimen/text"
             android:textColor="@color/app_text_llamativo"/>
         <Button
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -141,8 +142,15 @@
             android:text="LOGIN"
             android:textColor="@color/app_background"
             android:textSize="20sp"
-            android:onClick="login"
             />
+        <TextView
+            android:id="@+id/txtError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="@dimen/text"
+            android:textColor="@color/app_text_error"
+            android:visibility="gone"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -167,20 +175,6 @@
             android:textSize="@dimen/text"
             android:onClick="CrearCuenta"/>
     </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Aquí puedes poner el resto de tus elementos -->
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -9,7 +9,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import com.julen.swimcrono.Paginas.MainActivity
 import com.julen.swimcrono.R
+import com.julen.swimcrono.model.database.LocalDatabase
+import com.julen.swimcrono.model.service.UsuarioService
+import kotlinx.coroutines.launch
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,11 +30,23 @@ class SplashActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        lifecycleScope.launch {
+            inicioAutomatico()
+        }
 
         // Transición a login después de 2 segundos
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, LogInActivity::class.java))
             finish()
         }, 2000)
+    }
+    suspend fun inicioAutomatico(){
+        val usuarioDao = LocalDatabase.getInstance(this).usuarioDAO()
+        val usuarioService = UsuarioService(usuarioDao)
+        val usuarioActivo = usuarioService.getUserActivo()
+        if (usuarioActivo != null){
+            val intent: Intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
