@@ -19,4 +19,7 @@ interface UsuarioDAO {
 
     @Delete
     fun delete(usuario:Usuario)
+
+    @Query("select * from usuario where correo = :correo and contraseina = :contraseina limit 1")
+    fun getUserByMailAndPasswd(correo:String, contraseina :String) : Usuario
 }

@@ -8,6 +8,10 @@ android {
     namespace = "com.julen.swimcrono"
     compileSdk = 36
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.julen.swimcrono"
         minSdk = 24

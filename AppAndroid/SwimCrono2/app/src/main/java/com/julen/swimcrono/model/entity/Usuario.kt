@@ -1,5 +1,6 @@
 package com.julen.swimcrono.model.entity
 
+import android.R
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
@@ -14,6 +15,8 @@ class Usuario (
     @ColumnInfo(name = "contraseina") val contraseina: String,
     @ColumnInfo(name = "fecha_nacimiento") val fecha_nacimiento: String,
     @ColumnInfo(name = "genero") val genero: String,
-    @ColumnInfo(name = "foto") val foto: String?
+    @ColumnInfo(name = "foto") val foto: String?,
+    @ColumnInfo(name = "activo") var activo: Boolean
+
 
 )

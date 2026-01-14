@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Paginas.PerfilActivity"
+    android:background="@color/app_background">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_text"
+            android:textSize="@dimen/UnderTitle"
+            android:text="Perfil"
+            android:textStyle="bold"/>
+        <LinearLayout
+            android:id="@+id/fotoPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <ImageView
+                android:id="@+id/imagenPerfil"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:src="@drawable/ic_perfil"/>
+            <Button
+                android:id="@+id/botonSacarFoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sacar foto"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/botonElegirGaleria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Elegir de galería"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:textSize="@dimen/text"
+                android:textColor="@color/app_text"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/miembro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Miembro desde 2021"/>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
